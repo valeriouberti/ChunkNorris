@@ -1,4 +1,4 @@
-# SliceNDice
+# ChunkNorris
 
 A simple and efficient Rust library for splitting large text into smaller batches based on character count. This is particularly useful when working with large language models (LLMs) that have input size limitations.
 
@@ -12,11 +12,11 @@ A simple and efficient Rust library for splitting large text into smaller batche
 
 ## Installation
 
-Add `slice_n_dice` to your `Cargo.toml`:
+Add `chunk_norris` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-slice_n_dice = "0.1.0" # Replace with the latest version
+chunk_norris = "0.1.0" # Replace with the latest version
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ slice_n_dice = "0.1.0" # Replace with the latest version
 Here's a basic example of how to use the CharCountBatcher:
 
 ```rust
-use slice_n_dice::{BatchingStrategy, CharCountBatcher, TextBatch};
+use chunk_norris::{BatchingStrategy, CharCountBatcher, TextBatch};
 
 fn main() {
     let text = "This is an example text. It will be split into smaller batches.";
@@ -62,7 +62,7 @@ Batch 3:  smaller batches.
 The library is designed to be extensible. Although the current version only provides CharCountBatcher, you can implement the BatchingStrategy trait to create custom batching logic:
 
 ```rust
-use slice_n_dice::{BatchingStrategy, TextBatch};
+use chunk_norris::{BatchingStrategy, TextBatch};
 
 // Example: A hypothetical SentenceBatcher (not yet implemented in the library)
 struct SentenceBatcher {

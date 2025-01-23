@@ -1,7 +1,15 @@
 [package]
-name = "slice_n_dice"
+name = "chunk_norris"
+authors = ["Valerio uberti valerio.uberti23@gmail.com"]
 version = "0.1.0"
 edition = "2021"
+description = "A Rust library for splitting large text into smaller batches for LLM input."
+readme = "README.md"
+repository = "https://github.com/valeriouberti/ChunkNorris" 
+license = "MIT OR Apache-2.0" # Choose a license or a combination
+keywords = ["text", "batching", "llm", "nlp", "tokenizer"]
+categories = ["text-processing"]
+
 
 [dependencies]
 thiserror = "1.0"

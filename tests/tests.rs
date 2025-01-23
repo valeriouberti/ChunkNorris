@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use slice_n_dice::strategies::char_count::CharCountBatcher;
-    use slice_n_dice::strategies::BatchingStrategy;
+    use chunk_norris::strategies::char_count::CharCountBatcher;
+    use chunk_norris::strategies::BatchingStrategy;
 
     #[test]
     fn test_empty_input() {
