@@ -41,8 +41,29 @@
 //!         println!("Batch {}: {}", i + 1, batch.content);
 //!     }
 //! }
-//! ```
 //!
+//! ```
+//! or use the `SentenceBatcher`:
+//!
+//! ```
+//! use chunk_norris::{BatchingStrategy, SentenceBatcher, TextBatch};
+//!
+//! fn main() {
+//!     let text = "This is a long text. That needs to be split into smaller batches.";
+//!
+//!     // Create a new CharCountBatcher with a maximum of 20 characters per batch
+//!     let batcher = SentenceBatcher::new(20);
+//!
+//!     // Create the batches
+//!     let batches: Vec<TextBatch> = batcher.create_batches(text);
+//!
+//!     // Print the batches
+//!     for (i, batch) in batches.iter().enumerate() {
+//!         println!("Batch {}: {}", i + 1, batch.content);
+//!     }
+//! }
+//!
+//! ```
 //! ## Future Development
 //!
 //! The library is designed to be easily extensible. Future versions might include:
@@ -65,5 +86,6 @@ pub mod strategies;
 
 // Re-export the CharCountBatcher and TextBatch for easier access
 pub use crate::strategies::char_count::CharCountBatcher;
+pub use crate::strategies::sentence_count::SentenceBatcher;
 pub use crate::strategies::BatchingStrategy;
 pub use crate::strategies::TextBatch;

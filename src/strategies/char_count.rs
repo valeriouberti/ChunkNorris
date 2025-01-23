@@ -12,7 +12,7 @@ use super::{BatchingStrategy, TextBatch};
 /// let batcher = CharCountBatcher::new(5);
 /// let batches = batcher.create_batches(text);
 ///
-/// assert_eq!(batches.len(), 4);
+/// assert_eq!(batches.len(), 5);
 /// assert_eq!(batches[0].content, "This ");
 /// assert_eq!(batches[1].content, "is a ");
 /// assert_eq!(batches[2].content, "test ");

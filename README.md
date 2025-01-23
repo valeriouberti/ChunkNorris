@@ -21,7 +21,7 @@ chunk_norris = "0.1.0" # Replace with the latest version
 
 ## Usage
 
-Here's a basic example of how to use the CharCountBatcher:
+### CharCountBatcher
 
 ```rust
 use chunk_norris::{BatchingStrategy, CharCountBatcher, TextBatch};
@@ -42,7 +42,36 @@ fn main() {
 }
 ```
 
-### Output
+#### Output
+
+```
+Batch 1: This is an example text.
+Batch 2:  It will be split into
+Batch 3:  smaller batches.
+```
+
+### SentenceBatcher
+
+```rust
+use chunk_norris::{BatchingStrategy, SentenceBatcher, TextBatch};
+
+fn main() {
+    let text = "This is a sentence. This is another. And a third one!";
+
+    // Create a batcher with a minimum batch size of 10 characters
+    let batcher = SentenceBatcher::new(10);
+
+    // Generate the batches
+    let batches: Vec<TextBatch> = batcher.create_batches(text);
+
+    // Print the batches
+    for (i, batch) in batches.iter().enumerate() {
+        println!("Batch {}: {}", i + 1, batch.content);
+    }
+}
+```
+
+#### Output
 
 ```
 Batch 1: This is an example text.

@@ -1,5 +1,5 @@
 pub mod char_count;
-
+pub mod sentence_count;
 #[derive(Debug, Clone, PartialEq)]
 pub struct TextBatch {
     pub content: String,
