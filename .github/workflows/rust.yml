@@ -3,12 +3,12 @@ name: Chunk Norris CI/CD
 on:
   push:
     branches:
-      - main
+      - master
     paths-ignore: # Add this section
       - "**.md"
   pull_request:
     branches:
-      - main
+      - master
     paths-ignore: # Add this section
       - "**.md"
   release:
