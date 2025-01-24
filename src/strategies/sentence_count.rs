@@ -30,6 +30,17 @@ impl SentenceBatcher {
     pub fn new(min_chars: usize) -> Self {
         Self { min_chars }
     }
+
+    fn finalize_batch(&self, current_batch: String, batches: &mut Vec<TextBatch>) -> String {
+        if !current_batch.is_empty() {
+            batches.push(TextBatch {
+                content: current_batch, // Move current_batch, no clone
+            });
+            String::new() // Return a new empty String for the next batch
+        } else {
+            String::new() // Return a new empty String if current_batch was already empty
+        }
+    }
 }
 
 impl BatchingStrategy for SentenceBatcher {
@@ -61,27 +72,29 @@ impl BatchingStrategy for SentenceBatcher {
     fn create_batches(&self, text: &str) -> Vec<TextBatch> {
         let mut batches = Vec::new();
         let mut current_batch = String::new();
+        let mut last_delimiter_index: Option<usize> = None; // Track index of last delimiter
 
         for (index, char) in text.char_indices() {
             current_batch.push(char);
             if char == '.' || char == '?' || char == '!' {
-                if current_batch.len() >= self.min_chars
-                    || batches.is_empty() && index == text.len() - 1
-                {
-                    batches.push(TextBatch {
-                        content: current_batch.clone(),
-                    });
-                    current_batch = String::new();
-                }
+                last_delimiter_index = Some(index); // Record delimiter index
+            }
+            // Check if we should finalize a batch:
+            // 1. Sentence delimiter found AND current batch is long enough OR
+            // 2. We reached the end of the text
+            if last_delimiter_index.is_some() && (current_batch.len() >= self.min_chars || index == text.len() - 1) {
+                current_batch = self.finalize_batch(current_batch, &mut batches); // Finalize and reset
+                last_delimiter_index = None; // Reset delimiter index
             }
         }
-        if !current_batch.is_empty() {
+
+        // Handle any remaining text after the loop (in case no delimiters were found at the end)
+        self.finalize_batch(current_batch, &mut batches);
+
+        // Handle the case where the input text is not empty but no batches were created (e.g., no delimiters at all)
+        if batches.is_empty() && !text.is_empty() {
             batches.push(TextBatch {
-                content: current_batch,
-            });
-        } else if batches.is_empty() && !text.is_empty() {
-            batches.push(TextBatch {
-                content: text.to_string(),
+                content: text.to_string(), // In this edge case, we need to clone
             });
         }
         batches

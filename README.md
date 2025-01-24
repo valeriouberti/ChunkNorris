@@ -1,10 +1,13 @@
 # ChunkNorris
 
-A simple and efficient Rust library for splitting large text into smaller batches based on character count. This is particularly useful when working with large language models (LLMs) that have input size limitations.
+A simple and efficient Rust library for splitting large text into smaller batches based on different strategies. This is particularly useful when working with large language models (LLMs) that have input size limitations.
 
 ## Features
 
 - **`CharCountBatcher`:** Splits text into batches of a specified maximum character length.
+
+* **`SentenceBatcher`:** Splits text into batches based on complete sentences, respecting a minimum batch size.
+
 - **Easy to Use:** Simple and intuitive API.
 - **Lightweight:** No external dependencies for the core `CharCountBatcher`.
 - **Extensible:** Designed to accommodate other batching strategies in the future (e.g., sentence-based, semantic unit-based).
@@ -74,9 +77,9 @@ fn main() {
 #### Output
 
 ```
-Batch 1: This is an example text.
-Batch 2:  It will be split into
-Batch 3:  smaller batches.
+Batch 1: This is a sentence.
+Batch 2: This is another.
+Batch 3: And a third one!
 ```
 
 ### Explanation
