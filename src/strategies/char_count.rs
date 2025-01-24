@@ -1,4 +1,5 @@
 use super::{BatchingStrategy, TextBatch};
+use unicode_segmentation::UnicodeSegmentation;
 //
 /// This struct implements the [`BatchingStrategy`] trait to provide a simple way
 /// to break down text into smaller chunks of a specified maximum size.
@@ -70,24 +71,26 @@ impl BatchingStrategy for CharCountBatcher {
     /// assert_eq!(batches[3].content, "eation.")
     /// ```
     fn create_batches(&self, text: &str) -> Vec<TextBatch> {
-        let mut batches = Vec::new();
-        let mut current_batch = String::new();
+        let mut batches = Vec::with_capacity(text.graphemes(true).count() / self.max_chars + 1);
+        let mut start = 0;
 
-        for char in text.chars() {
-            current_batch.push(char);
-            if current_batch.len() >= self.max_chars {
-                batches.push(TextBatch {
-                    content: current_batch.clone(),
-                });
-                current_batch = String::new();
-            }
+        for (i, _) in text
+            .grapheme_indices(true)
+            .filter(|&(i, _)| i % self.max_chars == 0)
+            .skip(1)
+        {
+            batches.push(TextBatch {
+                content: text[start..i].to_string(),
+            });
+            start = i;
         }
 
-        if !current_batch.is_empty() {
+        if start < text.len() {
             batches.push(TextBatch {
-                content: current_batch,
+                content: text[start..].to_string(),
             });
         }
+
         batches
     }
 }

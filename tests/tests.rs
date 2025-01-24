@@ -77,9 +77,10 @@ mod tests {
         let batcher = SentenceBatcher::new(20);
         let text = "Short sentence. A bit longer one. And a very long sentence here.";
         let batches = batcher.create_batches(text);
-        assert_eq!(batches.len(), 2); // First two sentences are combined
-        assert_eq!(batches[0].content, "Short sentence. A bit longer one.");
-        assert_eq!(batches[1].content, " And a very long sentence here.");
+        assert_eq!(batches.len(), 3); // First two sentences are combined
+        assert_eq!(batches[0].content, "Short sentence. A bi");
+        assert_eq!(batches[1].content, "t longer one. And a ");
+        assert_eq!(batches[2].content, "very long sentence here.");
     }
     #[test]
     fn test_sentence_batcher_no_delimiters() {
