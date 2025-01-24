@@ -1,6 +1,6 @@
 # ChunkNorris
 
-A simple and efficient Rust library for splitting large text into smaller batches based on character count. This is particularly useful when working with large language models (LLMs) that have input size limitations.
+A simple and efficient Rust library for splitting large text into smaller batches based on different strategies. This is particularly useful when working with large language models (LLMs) that have input size limitations.
 
 ## Features
 
